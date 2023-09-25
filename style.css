@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #2a3439;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+}
+
+.menu-close {
+  display: none;
+}
+
+.menu {
+  background-color: #d831ae;
+}
+
+/* Estilos generales */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  display: flex; /* Cambiamos a un contenedor flex */
+  align-items: center; /* Centramos verticalmente los elementos */
+  height: 100%; /* Establecemos la altura para centrar verticalmente */
+}
+
+ul img {
+  width: 100px;
+  display: inline-block;
+  margin-left: 15px;
+  margin-right: 20px;
+}
+
+/* Alineamos el menú a la izquierda */
+ul li {
+  color: #e07129;
+  display: inline-block;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  align-content: flex-end;
+}
+
+/* Ajustamos el tamaño de los elementos del menú */
+ul li a {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #e8ebf7;
+  display: block;
+}
+
+/* Cambiamos el color del cursor al pasar por encima de un elemento del menú */
+ul li a:hover {
+  color: #e07129;
+}
+
+
+@media (max-width: 768px) {
+  .menu-icon{
+    color: #e8ebf7;
+    display: block;
+    margin-left: 10px;
+    margin-top: 7px;
+    transition: opacity 0.3s ease;
+  }
+
+  .menu-close{
+    color: #e8ebf7;
+    display: block;
+    margin-left: 10px;
+    margin-top: 7px;
+    transition: opacity 0.3s ease;
+  }
+
+  .menu{
+    width: 200px;
+    position: absolute;
+    height: 100%;
+    left: -200px;
+    transition: right 0.2s ease, opacity 0.2s ease;
+  }
+
+  ul{
+    flex-direction: row;
+    height: 100vh;
+    text-align: left;
+  }
+
+  ul img{
+    width: 130px;
+  }
+
+  ul li{
+    display: block;
+    width: 200px;
+    margin-top: 20%;
+    margin-bottom: 20%;
+    text-align: center
+  }
+  
+  #menu-toggle:checked ~ .menu{
+    left: 0;
+    opacity: 1;
+  }
+
+  #menu-toggle:checked ~ .menu-icon{
+    display: none;
+  }
+  
+  .menu{
+    display: block;
+    opacity: 0;
+  }
+}
