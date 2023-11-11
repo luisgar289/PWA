@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Menú Responsivo</title>
+    <link rel="manifest" href="/manifest.json">
+    <title>Desenigma</title>
 </head>
 <body>
     <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <div class="top">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <img src="img/logo.png" alt="logo" class="logo">
+    </div>
     <ul class="menu">
-        <label for="menu-toggle" class="menu-close">&#65368;</label>
-        <img src="logo.png" alt="logo" class="logo">
+        <img src="img/logo.png" alt="logo" class="logo">
         <li><a href="#">Continuar</a></li>
         <li><a href="#">Salir del equipo</a></li>
         <li><a href="#">Perfil</a></li>
         <li><a href="#">Ajustes</a></li>
         <li><a href="#">Cerrar Sesión</a></li>
     </ul>
+
+    <div class="contenedor">
+        
+    </div>
+    <script src="app.js"></script>
 </body>
+<script>
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+</script>
 </html>
