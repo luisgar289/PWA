@@ -31,7 +31,6 @@ body {
   display: none;
 }
 
-
 ul {
   list-style-type: none;
   margin: 0;
@@ -58,14 +57,12 @@ ul li {
   margin-bottom: 5px;
 }
 
-
 ul li a {
   padding: 10px 20px;
   text-decoration: none;
   color: #e8ebf7;
   display: block;
 }
-
 
 ul li a:hover {
   color: #e07129;
