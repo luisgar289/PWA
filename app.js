@@ -1,6 +1,6 @@
 const guardarDatos = {
     nombre: "Luis",
-    edad: 21,
+    edad: 22,
     correo: null,
     telefono: 1234567890,
   }
