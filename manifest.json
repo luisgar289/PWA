@@ -5,6 +5,7 @@
     "background_color": "#2a3439", 
     "theme_color": "#d831ae", 
     "display": "fullscreen",
+    "form_factor": "wide",
     "icons": [
         {
             "src": "./img/icon-144x144.png",
