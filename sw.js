@@ -37,3 +37,12 @@ self.addEventListener("fetch", event =>  {
     event.respondWith(returnCachedResource());
 });
 
+if (navigator.setAppBadge) {
+  console.log("The App Badging API is supported!");
+}
+
+navigator.setAppBadge(64).then(() => {
+console.log("The badge was added");
+}).catch(e => {
+console.error("Error displaying the badge", e);
+});
