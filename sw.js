@@ -5,7 +5,7 @@ const pre_cached = [".", "style.css","img/"]
 self.addEventListener("install", event => {
     async function preCacheResources(){
         //eliminar cache previo
-        if ('caches' in window) {
+        if ('caches' in navigator) {
             caches.keys().then(function(cacheNames) {
               cacheNames.forEach(function(cacheName) {
                 if (cacheName.startsWith(cache_name)) {
@@ -35,14 +35,4 @@ self.addEventListener("fetch", event =>  {
         }
     }
     event.respondWith(returnCachedResource());
-});
-
-if (navigator.setAppBadge) {
-    console.log("The App Badging API is supported!");
-  }
-  
-navigator.setAppBadge(64).then(() => {
-    console.log("The badge was added");
-}).catch(e => {
-  console.error("Error displaying the badge", e);
 });
