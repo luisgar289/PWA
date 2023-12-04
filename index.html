@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
     <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
     <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
-    <meta name="apple-mobile-web-app-status-bar" content="#d831ae" />\
+    <meta name="apple-mobile-web-app-status-bar" content="#d831ae" />
     <title>Desenigma</title>
 </head>
 <body>
@@ -32,13 +32,18 @@
         <li><a href="#">Cerrar Sesión</a></li>
     </ul>
     <div class="contenedor">
-        <button id="button">Activar Notificaciones</button>
+        <button onclick="updateBtn()" id="pushButton"></button>
+        <section style="display: none;" class="subscription-details js-subscription-details is-invisible">
+            <p>Once you've subscribed your user, you'd send their subscription to your
+            server to store in a database so that when you want to send a message
+            you can lookup the subscription and send a message to it.</p>
+            <p>To simplify things for this code lab copy the following details
+            into the <a href="https://web-push-codelab.glitch.me/">Push Companion
+            Site</a> and it'll send a push message for you, using the application
+            server keys on the site - so make sure they match.</p>
+            <pre><code class="js-subscription-json"></code></pre>
+          </section>
     </div>
-    <script src="app.js"></script>
+    <script src="./app.js"></script>
 </body>
-<script>
-    if('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
-</script>
 </html>
