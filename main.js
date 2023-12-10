@@ -12,6 +12,7 @@ const firebaseConfig = {
     appId: "1:32119081460:web:c052963ca533de3b9f51a1"
 };
 
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth();
@@ -25,14 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
     getId().then(() => {
         const cookieFound = userId.includes(cookie);
         console.log(cookieFound);
-        if (cookieFound === false) {
+        //remover por problemas de CORS
+        /*if (cookieFound === false) {
             window.location.href = "./index.html";
             document.cookie = "user= null";
         } else {
             getData().then(() => {
                 niveles();
             });
-        }
+        }*/
+        getData().then(() => {
+            niveles();
+        });
     });
 });
 

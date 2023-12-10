@@ -1,6 +1,6 @@
 const cache_name = "resume-cache"
 
-const pre_cached = [".", "style.css","img/"]
+const pre_cached = [".", "./style.css","./img/", './ahorcado.js', '.main.js', './main.html',]
 
 self.addEventListener("install", event => {
     async function preCacheResources(){
