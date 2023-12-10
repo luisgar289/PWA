@@ -1,35 +1,3 @@
-/*const guardarDatos = {
-    nombre: "Luis",
-    edad: 22,
-    correo: null,
-    telefono: 1234567890,
-}
-  
-localStorage.setItem("datos", JSON.stringify(guardarDatos));
-console.log(JSON.parse(localStorage.getItem("datos")));
-
-//insertar un boton en el contenedor que solicite notificaciones
-
-const button = document.getElementById('button');
-
-button.addEventListener('click', () => {
-    Notification.requestPermission()
-        .then(result => {
-            console.log(result);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-});
-
-navigator.setAppBadge(42).then(() => {
-  console.log("The badge was added");
-}).catch(e => {
-  console.error("Error displaying the badge", e);
-});*/
-
-//Push Notifications
-
 const applicationServerPublicKey = 'BC_Cl2w7p7FWty_GxlWeJPBS4I88uGTKq3dp9m85adPqXGIqIK6BB2w71jPknlYvIs1tt05WlEB3nCDuXO2hVs4';
 
 function urlB64ToUint8Array(base64String) {
