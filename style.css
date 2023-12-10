@@ -9,6 +9,79 @@ body {
   background-position: calc(50% - 0px) calc(100% - 0px);
 }
 
+.login{
+  background-color: #e8ebf7;
+  width: 650px;
+  height: 480px;
+  margin: 70px auto;
+  border-radius: 10px;
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.registro{
+  background-color: #e8ebf7;
+  width: 650px;
+  height: 600px;
+  margin: 40px auto;
+  border-radius: 10px;
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.login {
+  text-align: center;
+}
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+input {
+  padding: 10px;
+  width: 200px;
+}
+label {
+  transition: all 0.3s ease-out;
+  color: #333;
+  opacity: 0; /* Inicialmente oculto */
+}
+.show-password{
+  position: absolute;
+  top: 72%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.btnLogin{
+  background-color: #d831ae;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+
+}
+
+#register, #guest, #forgot-password{
+  
+  text-decoration: none;
+  padding: 10px 20px;
+  color: #000;
+}
+
+#register:hover, #guest:hover, #forgot-password:hover{
+  color: #e07129;
+}
+
 .top {
   display: flex;
   display: none;
@@ -75,6 +148,104 @@ ul li a:hover {
   margin: 50px auto;
   border-radius: 10px;
   opacity: 0.7;
+}
+
+/* ESTILOS AHORCADO */
+* {
+  box-sizing: border-box;
+}
+.main-container {
+  max-width: 800px;
+  margin: auto;
+}
+h1.titulo {
+  margin: 50px auto 80px auto;
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
+h1#msg-final {
+  text-align: center;
+  color: crimson;
+  transition: all .5s ease;
+  transform: scale(0);
+  min-height: 50px;
+  margin-bottom: 0;
+}
+.zoom-in {
+  transform: scale(1) !important;
+}
+#acierto {
+  text-align: center;
+  min-height: 24px;
+  transform: scale(0);
+}
+.acierto {
+  animation: zoomInOut 1s ease;
+}
+.rojo {
+  color: red;
+}
+.verde {
+  color: green;
+}
+@keyframes zoomInOut {
+  0% { transform: scale(0); }
+  50% { transform: scale(1); }
+  70% { transform: scale(1); }
+  100% { transform: scale(0); }
+}
+h2.palabra {
+  margin: 0 auto 25px auto;
+  text-align: center;
+  color: royalblue;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+}
+.flex-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px auto; 
+}
+.no-wrap {
+  flex-wrap: nowrap !important;
+}
+.col {
+  width: 50%;
+  text-align: center;
+}
+.col span {
+  color: blueviolet;
+}
+#turnos h3 {
+  margin: auto;
+}
+h3 span {
+   color: blue;
+}
+.letra:disabled {
+  color:rgba(255, 0, 0, 0.5);
+}
+picture {
+  position: relative;
+}
+picture img {
+  position: absolute;
+  top: -203px;
+  left: -205px;
+  height: 225px;
+}
+#image5, #image4, #image3,
+#image2, #image1, #image0 {
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.fade-in {
+  opacity: 1 !important;
+}
+.encuadre {
+  border: 2px dashed crimson;
+  padding: 3px 2px 2px 6px;
 }
 
 @media (max-width: 480px) {

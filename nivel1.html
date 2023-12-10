@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- Soporte para iOS -->
+    <link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
+    <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#d831ae" />
+    <title>Desenigma</title>
+    <meta charset="utf-8">
+    <title>Ud.2 - Relacion de ejercicios 5</title>
+    <link rel="stylesheet" href="estilo-ahoracado.css">
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <div class="top">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <img src="img/logo.png" alt="logo" class="logo">
+    </div>
+    <ul class="menu">
+        <img src="img/logo.png" alt="logo" class="logo">
+        <li><a href="#">Continuar</a></li>
+        <li><a href="#">Salir del equipo</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a href="#">Ajustes</a></li>
+        <li><a href="#">Cerrar Sesión</a></li>
+    </ul>
+    <div class="contenedor">
+        <button onclick="updateBtn()" id="pushButton"></button>
+        <section style="display: none;" class="subscription-details js-subscription-details is-invisible">
+            <p>Once you've subscribed your user, you'd send their subscription to your
+            server to store in a database so that when you want to send a message
+            you can lookup the subscription and send a message to it.</p>
+            <p>To simplify things for this code lab copy the following details
+            into the <a href="https://web-push-codelab.glitch.me/">Push Companion
+            Site</a> and it'll send a push message for you, using the application
+            server keys on the site - so make sure they match.</p>
+            <pre><code class="js-subscription-json"></code></pre>
+          </section>
+          <div class="main-container">
+            <h1 class="titulo">Juego del ahorcado</h1>
+            <h1 id="msg-final"></h1>
+            <h3 id="acierto"></h3>
+            <div class="flex-row no-wrap">
+              <h2 class="palabra" id="palabra"></h2>
+              <picture>
+                <img src="img/ahorcado_6.jpeg" alt="" id="image6">
+                <img src="img/ahorcado_5.jpeg" alt="" id="image5">
+                <img src="img/ahorcado_4.jpeg" alt="" id="image4">
+                <img src="img/ahorcado_3.jpeg" alt="" id="image3">
+                <img src="img/ahorcado_2.jpeg" alt="" id="image2">
+                <img src="img/ahorcado_1.jpeg" alt="" id="image1">
+                <img src="img/ahorcado_0.jpeg" alt="" id="image0">
+              </picture>
+            </div>
+            <div class="flex-row" id="turnos">
+              <div class="col">
+                <h3>Intentos restantes: <span id="intentos">6</span></h3>
+              </div>
+              <div class="col">
+                <button onclick="inicio()" id="reset">Elegir otra palabra</button>
+                <button onclick="pista()" id="pista">Dame una pista!</button>
+                <span id="hueco-pista"></span>
+              </div>
+              </div>
+            <div class="flex-row">
+              <div class="col">
+                <div class="flex-row" id="abcdario">
+                </div>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+    </div>
+    <script src="ahorcado.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>

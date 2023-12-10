@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        /* Agrega estilos según sea necesario */
+    </style>
+</head>
+
+<body>
+    <div class="registro">
+        <h2>Ingresa tus datos</h2>
+        <p>Correo Electronico <i class="fas fa-envelope"></i></p>
+        <input type="text" id="email" name="email" placeholder="Email">
+        <p>Usuario <i class="fas fa-user"></i></p>
+        <input type="text" id="username" name="username" placeholder="Username">
+        <p>Contraseña <i class="fas fa-lock"></i></p>
+        <input type="password" id="password" name="password" placeholder="Password">
+        <p>Confirmar Contraseña <i class="fas fa-lock"></i></p>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+        <p id="error" style="opacity: 0; font-size: 0px;"></p>
+        <br>
+        <button class="btnLogin" id="btnLogin">Terminar Registro</button>
+        <br>
+        <a href="./index.html" id="forgot-password">Iniciar Sesión</a>
+    </div>
+    <script type="module" src="./registro.js">
+    </script>
+</body>
+
+</html>

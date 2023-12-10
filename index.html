@@ -1,49 +1,61 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <!-- Soporte para iOS -->
-    <link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
-    <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
-    <meta name="apple-mobile-web-app-status-bar" content="#d831ae" />
-    <title>Desenigma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+
+    </style>
 </head>
+
 <body>
-    <input type="checkbox" id="menu-toggle">
-    <div class="top">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
-        <img src="img/logo.png" alt="logo" class="logo">
+    <div class="login">
+        <h1>Bienvenido a Desenigma</h1>
+        <div class="input-container">
+            <label for="username">Correo Electrónico</label>
+            <br><br>
+            <input type="email" id="email" name="username" placeholder="Correo Electronico" onclick="showLabel('username')">
+            <i class="fas fa-envelope show-password"></i>
+        </div>
+        <div class="input-container">
+            <label for="password">Contraseña</label>
+            <br><br>
+            <input type="password" id="password" name="password" placeholder="Password" onclick="showLabel('password')">
+            <i class="fas fa-eye show-password" onclick="togglePassword('password')"></i>
+        </div>
+        <button class="btnLogin" id="btnIngresar">Login</button>
+        <p id="error" style="opacity: 0; font-size: 0px;"></p>
+        <a href="forgot-password.html" id="forgot-password">¿Olvidaste tu contraseña?</a>
+        <br>
+        <div class="others">
+            <a href="register.html" id="register">Registrarse</a>
+            <a href="main.html" id="guest">Invitado</a>
+        </div>
     </div>
-    <ul class="menu">
-        <img src="img/logo.png" alt="logo" class="logo">
-        <li><a href="#">Continuar</a></li>
-        <li><a href="#">Salir del equipo</a></li>
-        <li><a href="#">Perfil</a></li>
-        <li><a href="#">Ajustes</a></li>
-        <li><a href="#">Cerrar Sesión</a></li>
-    </ul>
-    <div class="contenedor">
-        <button onclick="updateBtn()" id="pushButton"></button>
-        <section style="display: none;" class="subscription-details js-subscription-details is-invisible">
-            <p>Once you've subscribed your user, you'd send their subscription to your
-            server to store in a database so that when you want to send a message
-            you can lookup the subscription and send a message to it.</p>
-            <p>To simplify things for this code lab copy the following details
-            into the <a href="https://web-push-codelab.glitch.me/">Push Companion
-            Site</a> and it'll send a push message for you, using the application
-            server keys on the site - so make sure they match.</p>
-            <pre><code class="js-subscription-json"></code></pre>
-          </section>
-    </div>
-    <script src="./app.js"></script>
+    <script>
+        function showLabel(inputId) {
+            var label = document.querySelector('label[for=' + inputId + ']');
+            label.style.opacity = '1';
+        }
+        function togglePassword(passwordInputId) {
+            var passwordInput = document.getElementById(passwordInputId);
+            var eyeIcon = document.querySelector('.fa-eye');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
+    <script type="module" src="./iniciarsesion.js"></script>
 </body>
+
 </html>
