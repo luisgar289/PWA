@@ -22,44 +22,54 @@ var userId = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     solicitarPermisoNotificaciones();
-    function online(){
-    const cookies = document.cookie;
-    if (cookies === "") {
-        window.location.href = "./index.html";
-    } else {
-        cookie = document.cookie.split(';').find(row => row.startsWith('user=')).split('=')[1];
-        localStorage.setItem('cookie', cookie);
-        console.log(cookie);
-        getId().then(() => {
-            const cookieFound = userId.includes(cookie);
-            localStorage.setItem('resultCookie', cookieFound);
-            const resultCookie = localStorage.getItem('resultCookie');
-            console.log(resultCookie);
-            if (resultCookie === "false") {
-                window.location.href = "./index.html";
-                document.cookie = "user= null";
-            } else {
-                getData().then(() => {
-                    niveles();
-                });
-            }
-        });
-    }}
-    function offline(){
+    function online() {
+        const cookies = document.cookie;
+        if (cookies === "") {
+            window.location.href = "./index.html";
+        } else {
+            cookie = document.cookie.split(';').find(row => row.startsWith('user=')).split('=')[1];
+            localStorage.setItem('cookie', cookie);
+            console.log(cookie);
+            getId().then(() => {
+                const cookieFound = userId.includes(cookie);
+                localStorage.setItem('resultCookie', cookieFound);
+                const resultCookie = localStorage.getItem('resultCookie');
+                console.log(resultCookie);
+                if (resultCookie === "false") {
+                    window.location.href = "./index.html";
+                    document.cookie = "user= null";
+                } else {
+                    getData().then(() => {
+                        niveles();
+                    });
+                }
+            });
+        }
+    }
+    function offline() {
         const cookieFound = localStorage.getItem('resultCookie');
         const resultado = localStorage.getItem('result');
         if (cookieFound === "false" || resultado === null) {
             window.location.href = "./index.html";
-        }else{
+        } else {
+            if (resultado.equipo === "") {
+                document.getElementById('equipo').innerHTML = 'Unirse a un equipo';
+            } else if (resultado.equipo === "invitado") {
+                document.getElementById('equipo').id = 'no-disponible';
+                document.getElementById('no-disponible').innerHTML = 'Equipos deshabilitados';
+            }
+            else {
+                document.getElementById('equipo').innerHTML = 'Salir del equipo';
+            }
             niveles();
         }
     }
-    if(navigator.onLine){
+    if (navigator.onLine) {
         console.log('online');
         online();
     }
-    else{
-        console.log('offline');
+    else {
+        console.log(navigator.onLine);
         offline();
     }
 });
@@ -214,7 +224,7 @@ document.getElementById('equipo').addEventListener('click', () => {
         niveles();
     }
     else {
-        if (data.equipo === "") {
+        if (result.equipo === "" && navigator.onLine) {
             let nombreEquipo = [];
             const usuariosRef = ref(db, 'usuarios/' + cookie + '/');
             const equipoRef = ref(db, 'equipos/');
@@ -266,7 +276,27 @@ document.getElementById('equipo').addEventListener('click', () => {
             }).catch((error) => {
                 console.error(error);
             });
-        } else {
+        } else if (!navigator.onLine) {
+            const titulo = document.createElement('h1');
+            titulo.textContent = 'Elige un equipo';
+            titulo.style.textAlign = 'center';
+            document.getElementById('contenedor').appendChild(titulo);
+            const h2 = document.createElement('h3');
+            h2.textContent = 'No puedes unirte a un equipo sin conexión a internet';
+            h2.style.textAlign = 'center';
+            document.getElementById('contenedor').appendChild(h2);
+            const button = document.createElement('button');
+            button.textContent = 'Aceptar';
+            button.style.margin = 'auto';
+            button.style.display = 'block';
+            button.style.marginBottom = '20px';
+            button.style.marginTop = '20px';
+            document.getElementById('contenedor').appendChild(button);
+            button.addEventListener('click', () => {
+                niveles();
+            });
+        }
+        else{
             const usuariosRef = ref(db, 'usuarios/' + cookie + '/');
             update(usuariosRef, {
                 equipo: ""
@@ -289,35 +319,35 @@ document.getElementById('continuar').addEventListener('click', () => {
 function solicitarPermisoNotificaciones() {
     // Verificar si el navegador soporta las notificaciones
     if (!("Notification" in window)) {
-      console.error("Este navegador no soporta notificaciones.");
-      return;
+        console.error("Este navegador no soporta notificaciones.");
+        return;
     }
-  
+
     // Verificar si ya se tienen permisos
     if (Notification.permission === "granted") {
-      console.log("Ya se tienen permisos para enviar notificaciones.");
-      return;
+        console.log("Ya se tienen permisos para enviar notificaciones.");
+        return;
     }
-  
+
     // Si los permisos no han sido solicitados o fueron rechazados, solicitarlos
     if (Notification.permission !== "denied") {
-      Notification.requestPermission().then((permiso) => {
-        if (permiso === "granted") {
-          console.log("Permisos concedidos para enviar notificaciones.");
-          enviarNotificacion("¡Bienvenido!", "Gracias por permitir las notificaciones.");
-          navigator.setAppBadge(1);
-        } else {
-          console.warn("Permisos de notificación fueron rechazados.");
-        }
-      });
+        Notification.requestPermission().then((permiso) => {
+            if (permiso === "granted") {
+                console.log("Permisos concedidos para enviar notificaciones.");
+                enviarNotificacion("¡Bienvenido!", "Gracias por permitir las notificaciones.");
+                navigator.setAppBadge(1);
+            } else {
+                console.warn("Permisos de notificación fueron rechazados.");
+            }
+        });
     }
-  }
+}
 
-  function enviarNotificacion(title, body) {
+function enviarNotificacion(title, body) {
     const options = {
-      body: body,
-      icon: './img/icon-512x512.png',
-      badge: './img/icon-512x512.png'
+        body: body,
+        icon: './img/icon-512x512.png',
+        badge: './img/icon-512x512.png'
     };
     new Notification(title, options);
-  }
+}
