@@ -1,13 +1,13 @@
 // Array de palabras
 var palabras = [["atlantico", "Un océano"], ["mole", "Salsa espesa con chocolate y chiles"], 
-["guacamole", "Dip de aguacate, tomate y cilantro"], ["tamales", "Cocido en hojas de maíz"], 
-["posole", "Sopa con maíz hominy y carne"], ["mariachis", "Músicos con trajes tradicionales"], 
-["basquetboll", "Un juego de 5 integrantes"], ["Popocatépetl", "Un volcan de mexico"],
+["guacamole", "Aderezo de aguacate, tomate y cilantro"], ["tamales", "Cocido en hojas de maíz"], 
+["pozole", "Sopa con maíz blanco y carne"], ["mariachis", "Músicos con trajes tradicionales"], 
+["basquetbol", "Un juego de 5 integrantes"], ["Popocatepetl", "Un volcan de mexico"],
 ["relampago", "Antecede al trueno"], ["jirafa", "Un animal"],
 ["checoperez", "el mejor corredor de mexico"], ["mexico", "El mejor pais para nacer"],
 ["ilustracion", "Representación gráfica"], ["excursion", "Actividad en la naturaleza"], 
-["pastel", "felices cumpleaños"], 
-["escuelautec", "Lugar para estudiar"], ["carrera", "Competición en el autodormo"], ];
+["pastel", "feliz cumpleaños"], 
+["escuelautec", "Lugar para estudiar"], ["carrera", "Competición en el autodromo"], ];
 // Palabra a averiguar
 var palabra = "";
 // Nº aleatorio
@@ -87,7 +87,6 @@ function compruebaFin() {
     document.getElementById("msg-final").innerHTML = "Felicidades !!";
     document.getElementById("msg-final").className += "zoom-in";
     document.getElementById("palabra").className += " encuadre";
-    
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].disabled = true;
     }

@@ -1,43 +1,49 @@
-const cache_name = "resume-cache"
+const cache_name = "desenigma-cache";
 
-const pre_cached = [".", "./style.css","./img/", './ahorcado.js', '.main.js', './main.html',]
+const pre_cached = [
+    "./style.css",
+    "./ahorcado.js",
+    "./main.js",
+    "./main.html",
+    "./img/logo.png",
+    "./img/background.png",
+    "./img/ahorcado_0.jpeg",
+    "./img/ahorcado_1.jpeg",
+    "./img/ahorcado_2.jpeg",
+    "./img/ahorcado_3.jpeg",
+    "./img/ahorcado_4.jpeg",
+    "./img/ahorcado_5.jpeg",
+    "./img/ahorcado_6.jpeg",
+];
+
 
 self.addEventListener("install", event => {
-    async function preCacheResources(){
-        //eliminar cache previo
-        if ('caches' in navigator) {
-            caches.keys().then(function(cacheNames) {
-              cacheNames.forEach(function(cacheName) {
-                if (cacheName.startsWith(cache_name)) {
-                  caches.delete(cacheName);
-                }
-              });
-            });
-          }          
-        //crear cache
-        const cache = await caches.open(cache_name);
-        cache.addAll(pre_cached);
-    }
-    event.waitUntil(preCacheResources());
+  async function preCacheResources() {
+    //crear cache
+    const cache = await caches.open(cache_name);
+    cache.addAll(pre_cached);
+  }
+  event.waitUntil(preCacheResources());
 });
 
-self.addEventListener("fetch", event =>  {
-    async function returnCachedResource(){
-        const cache = await caches.open(cache_name);
-        const cachedResponse = await cache.match(event.request.url);
 
-        if (cachedResponse){
-            return cachedResponse;
-        }else{
-            const fetchResponse = await fetch(event.request.url);
-            cache.put(event.request.url, fetchResponse.clone());
-            return fetchResponse
-        }
+self.addEventListener("fetch", event => {
+  async function returnCachedResource() {
+    const cache = await caches.open(cache_name);
+    const cachedResponse = await cache.match(event.request.url);
+    if (cachedResponse) {
+      return cachedResponse;
+    } else {
+      const fetchResponse = await fetch(event.request.url);
+      cache.put(event.request.url, fetchResponse.clone());
+      return fetchResponse
     }
-    event.respondWith(returnCachedResource());
+  }
+  event.respondWith(returnCachedResource());
 });
 
-self.addEventListener('push', function(event) {
+
+self.addEventListener('push', function (event) {
   console.log('[Service Worker] Push Received.');
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
@@ -51,13 +57,13 @@ self.addEventListener('push', function(event) {
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('notificationclick', function (event) {
   console.log('[Service Worker] Notification click received.');
 
   event.notification.close();
 
   event.waitUntil(
-    clients.openWindow('https://developers.google.com/web')
+    clients.openWindow('./main.html')
   );
 });
 

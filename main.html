@@ -15,17 +15,18 @@
     <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
     <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
     <meta name="apple-mobile-web-app-status-bar" content="#d831ae" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <title>Desenigma</title>
 </head>
 <body>
     <input type="checkbox" id="menu-toggle">
     <div class="top">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <label for="menu-toggle" class="menu-icon"><i class="fa-solid fa-bars"></i></label>
         <img src="img/logo.png" alt="logo" class="logo">
     </div>
     <ul class="menu">
         <img src="img/logo.png" alt="logo" class="logo">
-        <li><a id="continuar" style="opacity: 0;">Continuar</a></li>
+        <li><a id="continuar" style="display: none;">Continuar</a></li>
         <li><a id="equipo"></a></li>
         <li><a id="perfil">Perfil</a></li>
         <li><a id="ajustes">Ajustes</a></li>
@@ -35,5 +36,18 @@
     </div>
     <script type="module" src="./main.js"></script>
     <script src="./ahorcado.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('Service Worker is registered', registration);
+                    })
+                    .catch(err => {
+                        console.error('Registration failed:', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

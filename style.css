@@ -47,7 +47,7 @@ input {
   padding: 10px;
   width: 200px;
 }
-label {
+.input-container label {
   transition: all 0.3s ease-out;
   color: #333;
   opacity: 0; /* Inicialmente oculto */
@@ -231,9 +231,9 @@ picture {
 }
 picture img {
   position: absolute;
-  top: -203px;
-  left: -205px;
-  height: 225px;
+    top: calc(50% - 200px);
+    left: calc(50% - 300px);
+    height: 220px;
 }
 #image5, #image4, #image3,
 #image2, #image1, #image0 {
@@ -248,10 +248,20 @@ picture img {
   padding: 3px 2px 2px 6px;
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 768px){
   body {
     background-position: calc(50% - 0px) calc(95% - 0px);
     background-size: 130%;
+  }
+
+  .login{
+    width: 85%;
+    height: 500;
+  }
+
+  .registro{
+    width: 70%;
+    height: 600px;
   }
 
   .top {
@@ -268,9 +278,10 @@ picture img {
   .menu-icon {
     color: #e8ebf7;
     font-size: 18px;
-    display: inline;
+    display: block;
     margin-left: 10px;
     transition: opacity 0.3s ease;
+    z-index: 2;
   }
 
   .menu {
@@ -318,4 +329,66 @@ picture img {
     margin: 50px auto;
     opacity: 0.7;
   }
+
+  .main-container{
+    height: calc(80vh - 50px);
+    margin: auto;
+  }
+  picture img {
+    position: absolute;
+    top: calc(50% - 290px);
+    left: calc(50% - 300px);
+    height: 220px;
+  }
+  .no-wrap{
+    margin-top: 30%;
+  }
+  #abcdario {
+    margin: 0;
+    width: 500px;
+  }
+  #abcdario button {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+  .col {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  .col span {
+    display: block;  /* Añade esta línea para que el span ocupe toda la línea */
+    width: 100%;
+    font-size: 15px;
+    margin: 5px;
+    font-size: 15px;
+  }
+
+  #pista, #reset{
+    width: 100;
+    height: 30px;
+    margin: 10px;
+    font-size: 15px;
+  }
+
+  h1#msg-final{
+    text-align: center;
+    color: crimson;
+    transition: all .5s ease;
+    transform: scale(0);
+    position: relative;
+    z-index: 1;
+    padding: 10px;
+}
+#acierto{
+  text-align: center;
+  min-height: 24px;
+  transform: scale(0);
+  position: relative;
+  z-index: 1;
+  padding: 10px;
+}
 }

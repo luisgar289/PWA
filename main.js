@@ -16,29 +16,52 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth();
-let cookie = "";
+let cookie;
 var data = {};
-let userId = [];
+var userId = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    cookie = document.cookie.split('; ').find(row => row.startsWith('user=')).split('=')[1];
-    console.log(cookie);
-    getId().then(() => {
-        const cookieFound = userId.includes(cookie);
-        console.log(cookieFound);
-        //remover por problemas de CORS
-        /*if (cookieFound === false) {
-            window.location.href = "./index.html";
-            document.cookie = "user= null";
-        } else {
-            getData().then(() => {
-                niveles();
-            });
-        }*/
-        getData().then(() => {
-            niveles();
+    solicitarPermisoNotificaciones();
+    function online(){
+    const cookies = document.cookie;
+    if (cookies === "") {
+        window.location.href = "./index.html";
+    } else {
+        cookie = document.cookie.split(';').find(row => row.startsWith('user=')).split('=')[1];
+        localStorage.setItem('cookie', cookie);
+        console.log(cookie);
+        getId().then(() => {
+            const cookieFound = userId.includes(cookie);
+            localStorage.setItem('resultCookie', cookieFound);
+            const resultCookie = localStorage.getItem('resultCookie');
+            console.log(resultCookie);
+            if (resultCookie === "false") {
+                window.location.href = "./index.html";
+                document.cookie = "user= null";
+            } else {
+                getData().then(() => {
+                    niveles();
+                });
+            }
         });
-    });
+    }}
+    function offline(){
+        const cookieFound = localStorage.getItem('resultCookie');
+        const resultado = localStorage.getItem('result');
+        if (cookieFound === "false" || resultado === null) {
+            window.location.href = "./index.html";
+        }else{
+            niveles();
+        }
+    }
+    if(navigator.onLine){
+        console.log('online');
+        online();
+    }
+    else{
+        console.log('offline');
+        offline();
+    }
 });
 
 function getId() {
@@ -68,9 +91,12 @@ function getData() {
         get(usuariosRef).then((snapshot) => {
             if (snapshot.exists()) {
                 data = snapshot.val();
-                if (data.equipo === "") {
+                localStorage.setItem('result', JSON.stringify(data));
+                const result = JSON.parse(localStorage.getItem('result'));
+                console.log(result);
+                if (result.equipo === "") {
                     document.getElementById('equipo').innerHTML = 'Unirse a un equipo';
-                } else if (data.equipo === "invitado") {
+                } else if (result.equipo === "invitado") {
                     document.getElementById('equipo').id = 'no-disponible';
                     document.getElementById('no-disponible').innerHTML = 'Equipos deshabilitados';
                 }
@@ -90,9 +116,10 @@ function getData() {
 }
 
 function niveles() {
-    document.getElementById('continuar').style.opacity = 0;
-    const nivel = data.nivel;
-    if (nivel === 1) {
+    document.getElementById('continuar').style.display = 'none';
+    const result = JSON.parse(localStorage.getItem('result'));
+    console.log('Funcion Nivel, data: ' + result.nivel);
+    if (result.nivel === 1) {
         document.getElementById('contenedor').innerHTML = `
         <div class="main-container">
             <h1 class="titulo">Juego del ahorcado</h1>
@@ -125,12 +152,10 @@ function niveles() {
                 <div class="flex-row" id="abcdario">
                 </div>
               </div>
-              <div class="col"></div>
             </div>
           </div>
         `;
         var scriptElement = document.createElement('script');
-
         // Establecer la fuente del script
         scriptElement.src = './ahorcado.js';
 
@@ -141,7 +166,8 @@ function niveles() {
 
 function perfil() {
     const contenedor = document.getElementById('contenedor');
-    document.getElementById('continuar').style.opacity = 1;
+    const result = JSON.parse(localStorage.getItem('result'));
+    document.getElementById('continuar').style.display = 'block';
     contenedor.innerHTML = "";
     // Crear elementos
     const div = document.createElement('div');
@@ -155,10 +181,10 @@ function perfil() {
     h1.classList.add('titulo');
     // Añadir texto
     h1.textContent = 'Perfil';
-    h2.textContent = 'Usuario: ' + data.usuario;
-    h3.textContent = 'Correo Electrónico: ' + data.correo;
-    h4.textContent = 'Nivel: ' + data.nivel;
-    p.textContent = 'Equipo: ' + data.equipo;
+    h2.textContent = 'Usuario: ' + result.usuario;
+    h3.textContent = 'Correo Electrónico: ' + result.correo;
+    h4.textContent = 'Nivel: ' + result.nivel;
+    p.textContent = 'Equipo: ' + result.equipo;
     // Añadir elementos al contenedor
     div.appendChild(h1);
     div.appendChild(h2);
@@ -171,23 +197,19 @@ function perfil() {
 }
 
 document.getElementById('salir').addEventListener('click', () => {
-    signInWithEmailAndPassword(auth, data.email, data.password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user);
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-        });
+    localStorage.setItem('result', "");
+    localStorage.setItem('resultCookie', "")
+    auth.signOut();
     document.cookie = "user= null";
     window.location.href = "index.html";
 });
 
 document.getElementById('equipo').addEventListener('click', () => {
+    document.getElementById('menu-toggle').checked = false;
+    const result = JSON.parse(localStorage.getItem('result'));
     document.getElementById('contenedor').innerHTML = "";
-    document.getElementById('continuar').style.opacity = 1;
-    if (cookie === "invitado") {
+    document.getElementById('continuar').style.display = 'block';
+    if (result.equipo === "invitado") {
         alert('Los equipos están deshabilitados para los usuarios invitados');
         niveles();
     }
@@ -256,13 +278,46 @@ document.getElementById('equipo').addEventListener('click', () => {
 
 document.getElementById('perfil').addEventListener('click', () => {
     perfil();
+    document.getElementById('menu-toggle').checked = false;
 });
 
 document.getElementById('continuar').addEventListener('click', () => {
     niveles();
+    document.getElementById('menu-toggle').checked = false;
 });
 
-document.getElementById('no-disponible').addEventListener('click', () => {
-    alert('Los equipos están deshabilitados para los usuarios invitados');
-}
-);
+function solicitarPermisoNotificaciones() {
+    // Verificar si el navegador soporta las notificaciones
+    if (!("Notification" in window)) {
+      console.error("Este navegador no soporta notificaciones.");
+      return;
+    }
+  
+    // Verificar si ya se tienen permisos
+    if (Notification.permission === "granted") {
+      console.log("Ya se tienen permisos para enviar notificaciones.");
+      return;
+    }
+  
+    // Si los permisos no han sido solicitados o fueron rechazados, solicitarlos
+    if (Notification.permission !== "denied") {
+      Notification.requestPermission().then((permiso) => {
+        if (permiso === "granted") {
+          console.log("Permisos concedidos para enviar notificaciones.");
+          enviarNotificacion("¡Bienvenido!", "Gracias por permitir las notificaciones.");
+          navigator.setAppBadge(1);
+        } else {
+          console.warn("Permisos de notificación fueron rechazados.");
+        }
+      });
+    }
+  }
+
+  function enviarNotificacion(title, body) {
+    const options = {
+      body: body,
+      icon: './img/icon-512x512.png',
+      badge: './img/icon-512x512.png'
+    };
+    new Notification(title, options);
+  }
